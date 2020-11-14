@@ -5,12 +5,13 @@ const postSchema = new mongoose.Schema({
     username: String,
     comments: [
         {
+            id: mongoose.Schema.Types.ObjectId,
             body: String,
             username: String,
             createdAt: String
         }
     ],
-    like: [
+    likes: [
         {
             username: String,
             createdAt: String

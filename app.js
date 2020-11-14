@@ -10,11 +10,15 @@ mongoose.connect(url, {useUnifiedTopology: true, useCreateIndex: true, useNewUrl
       .then(() => {
           console.log('successfully connected to mongo')
       })
+      .catch((err) => {
+          console.log('Could not connect to mongo', err);
+      })
 
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({ req }) => ({ req })
 })
 
 server.listen({ port: 5000 })
