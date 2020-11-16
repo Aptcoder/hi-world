@@ -44,7 +44,6 @@ module.exports = {
             }
         },
         deletePost: async (_, {postId }, context) => {
-            try {
                 const user = auth(context);
                 const post = await Post.findById(postId);
                 if(!post){
@@ -55,12 +54,8 @@ module.exports = {
                 }
                 await Post.deleteOne({ _id: postId});
                 return 'Deleted'
-            } catch(err){
-                throw new Error(err);
-            }
         },
     likePost: async (_, { postId }, context) => {
-        try {
             const {username} = auth(context);
             const post = await Post.findById(postId);
             if(!post){
@@ -77,9 +72,6 @@ module.exports = {
 
             await post.save();
             return post;
-        } catch(err){
-            throw new Error(err);
-        }
     }
     }
 }

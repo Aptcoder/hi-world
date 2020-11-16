@@ -9,7 +9,6 @@ module.exports = {
     Mutation: {
 
         login: async (_, { username, password }) => {
-            try {
                 const { valid, errors} = loginValidator(username, password);
                 if(valid){
                     console.log(valid)
@@ -33,15 +32,10 @@ module.exports = {
                     id: user._id,
                     token
                 }
-            }
-            catch(err){
-                throw new Error(err);
-            }
         },
         register: async (_, { 
             registerInput: { username, email, password, confirmPassword }
         }) => {
-            try {
                 //TODO validate user data
                 //TODO make sure username does not already exist
                 const { valid, errors} = registerValidator(email, username, password, confirmPassword)
@@ -78,11 +72,6 @@ module.exports = {
                     id: res._id,
                     token
                 }
-            }
-            catch(err){
-                console.log('error',err);
-                throw new Error(err);
-            }
         }
     }
 }

@@ -7,7 +7,6 @@ const mongoose  = require('mongoose');
 module.exports = {
     Mutation: {
         createComment: async (_, { postId, body}, context) => {
-            try {
                 const {username } = auth(context);
                 if(body.trim === ""){
                     throw new UserInputError("Body of comment is empty", {
@@ -30,12 +29,8 @@ module.exports = {
             await post.save();
             return post;
             }   
-            catch(err){
-                throw new Error(err);
-            }
         },
     deleteComment: async (_, { postId, commentId}, context) => {
-        try {
             const {username } = auth(context);
             const post = await Post.findById(postId);
             if(!post){
@@ -48,9 +43,5 @@ module.exports = {
                 return post;
             }
             throw new AuthenticationError('Action not allowed');
-        } catch(err){
-            throw new Error(err);
-        }
-    }
     }
 }
