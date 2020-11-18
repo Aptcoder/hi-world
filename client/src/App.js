@@ -10,6 +10,7 @@ import MenuBar from './components/MenuBar';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import AuthRoute from './utils/AuthRoute';
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
     <Container>
     <MenuBar />
     <Route component={Home} path="/" exact={true}/>
-    <Route component={Register} path="/register" exact={true}/>
-    <Route component={Login} path="/login" exact={true}/>
+    <AuthRoute component={Register} path="/register" exact={true}/>
+    <AuthRoute component={Login} path="/login" exact={true}/>
     </Container>
     </Router>
     </AuthProvider>
