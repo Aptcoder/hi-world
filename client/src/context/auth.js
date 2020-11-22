@@ -9,7 +9,7 @@ if(localStorage.getItem('jwtToken')){
     const decoded = jwtDecode(token);
 
     console.log(decoded);
-    if(decoded * 1000 < ( Date.now() - (4 * 60 * 60 * 1000) )) {
+    if((decoded.exp * 1000) < ( Date.now() - (4 * 60 * 60 * 1000) )) {
         localStorage.removeItem('jwtToken');
     }
     else {

@@ -8,5 +8,9 @@
 
 .form-container {
     width: 400px;
-    margin: auto;
+    margin: auto    ;
+}
+
+.ui.labeled.button:not([class*="left labeled"])>.button:focus {
+    background-color: #00b5ad;
 }

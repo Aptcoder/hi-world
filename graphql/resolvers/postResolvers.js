@@ -29,19 +29,17 @@ module.exports = {
 
     Mutation: {
         createPost: async (_,{ body }, context) => {
-            try {
                 const user = auth(context);
                 const newPost = new Post({
                 body,
                 username: user.username,
                 user: user.id
             });
-
+            if(!body.trim()){
+                throw new UserInputError("Post body can not be empty");
+            }
             const post = await newPost.save();
             return post;
-            } catch(err){
-                throw new Error(err);
-            }
         },
         deletePost: async (_, {postId }, context) => {
                 const user = auth(context);
