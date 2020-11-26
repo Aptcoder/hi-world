@@ -9,13 +9,11 @@ const LikeButton = ({user, post : { id, likes, likeCount, username}}) => {
     useEffect(() => {
         if( user && likes.find((like) => (like.username == user.username)))
         {
-            console.log('true here');
             setLiked(true);
         }
         else { setLiked(false)}
     }, [user, likes]);
 
-    const onClick= () => {};
     const [likePost] = useMutation(LIKE_POST, {
         variables: { postId: id}
     })
@@ -49,11 +47,18 @@ const LikeButton = ({user, post : { id, likes, likeCount, username}}) => {
 const LIKE_POST = gql`
     mutation LikePost( $postId: ID! ){
             likePost( postId: $postId){
+                id body createdAt
+            likes {
+                username
+            }
+            comments {
                 id
-                likes{
-                    username
-                }
-                likeCount
+                username
+                body
+            }
+            likeCount
+            commentCount
+
             }
     }
 `

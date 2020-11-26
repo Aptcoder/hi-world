@@ -28,20 +28,20 @@ module.exports = {
 
             await post.save();
             return post;
-            }   
+            },
+            deleteComment: async (_, { postId, commentId}, context) => {
+                const {username } = auth(context);
+                const post = await Post.findById(postId);
+                if(!post){
+                    throw new Error('Post not found')
+                }
+                const commentIndex = post.comments.findIndex(c => c.id == commentId);
+                if(commentIndex > -1 && post.comments[commentIndex].username === username){
+                    post.comments.splice(commentIndex, 1);
+                    await post.save();
+                    return post;
+                }
+                throw new AuthenticationError('Action not allowed');
+        }   
         },
-    deleteComment: async (_, { postId, commentId}, context) => {
-            const {username } = auth(context);
-            const post = await Post.findById(postId);
-            if(!post){
-                throw new Error('Post not found')
-            }
-            const commentIndex = post.comments.findIndex(c => c.id == commentId);
-            if(commentIndex > -1 && post.comments[commentIndex].username === username){
-                post.comments.splice(commentIndex, 1);
-                await post.save();
-                return post;
-            }
-            throw new AuthenticationError('Action not allowed');
-    }
 }

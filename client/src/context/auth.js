@@ -9,11 +9,12 @@ if(localStorage.getItem('jwtToken')){
     const decoded = jwtDecode(token);
 
     console.log(decoded);
-    if((decoded.exp * 1000) < ( Date.now() - (4 * 60 * 60 * 1000) )) {
+    if((decoded.exp * 1000) < ( Date.now() - (4 * 60 * 60) )) {
         localStorage.removeItem('jwtToken');
     }
     else {
-        initialState = { user: decoded };
+        console.log('here jare')
+        initialState = { user: {...decoded, token} };
     }
 }
 
